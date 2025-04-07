@@ -71,7 +71,7 @@
     const birthDates = inventors.sort((a,b)=>{
       // This is called a ternary, shorthand for if statement
       (a.year > b.year )? 1 : -1;
-    })
+    });
 
     console.table(birthDates);
 
@@ -92,6 +92,17 @@
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+
+    const totalYear = inventors.reduce((total, inventor)=>{
+      return total + (inventor.passed - inventor.year);
+    }, 0);
+
+    // Reduce squash an array into one final, single value
+
+    console.log(totalYear);
+
+        /*===========================================================================================================*/
+
 
     // 5. Sort the inventors by years lived
 
