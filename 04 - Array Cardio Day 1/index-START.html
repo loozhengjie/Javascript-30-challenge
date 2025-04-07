@@ -35,6 +35,11 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
+
+    // Note: Javascript array functions are high level, they automatically do the heavy lifting for you 
+    // What you have to pass in the parameter is most likely the conditions for the loop
+
+    /*===========================================================================================================*/
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
@@ -46,11 +51,44 @@
 
     console.table(fifteen);
 
+    // Filter will return whatever the condition deem neccessary, so if you put in 10 items into the array, it might only return a few of them, or maybe all if all of them fit the filters
+
+    /*===========================================================================================================*/
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const fullNames = inventors.map(inventor=> `${inventor.first} ${inventor.last}`);
+    console.table(fullNames);
+
+    // Map will get everything in the array and return a new array with the same number of items
+    // So if you put in 10 items into the array, it will return 10 items
+
+    /*===========================================================================================================*/
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const birthDates = inventors.sort((a,b)=>{
+      // This is called a ternary, shorthand for if statement
+      (a.year > b.year )? 1 : -1;
+    })
+
+    console.table(birthDates);
+
+    // Sort will have two parameters, a and b, 
+    // which is the two items in the array that are being compared
+    // For this example,
+    // If a is greater than b, it will return 1
+    // If a is less than b, it will return -1
+    // If a is equal to b, it will return 0
+
+    // If 1, priotise a over b if necessary
+    // If -1, priotise b over a if necessary
+    // If 0, keep a and b in the same order
+
+    // Js abstracts the sorting algorithm, just know that there is a sorting algorithm under the hood
+
+    /*===========================================================================================================*/
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
