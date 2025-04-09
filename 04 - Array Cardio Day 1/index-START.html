@@ -101,21 +101,91 @@
 
     console.log(totalYear);
 
-        /*===========================================================================================================*/
-
+    /*===========================================================================================================*/
 
     // 5. Sort the inventors by years lived
+
+    const oldest = inventors.sort(function(a, b){
+      const lastGuyAge = a.passed - a.year;
+      const nextGuyAge = b.passed - b.year;
+
+      return (lastGuyAge > nextGuyAge) ? -1 : 1;
+    });
+
+    console.table(oldest);
+
+    /*===========================================================================================================*/
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // const category= document.querySelector('.mw-category');
 
+    // Query selector will return a node list instead of an array by default, so need to convert it into an array
+    // const links = Array.from(category.querySelectorAll("a"));
+
+
+    // const de = links.map(link=>
+    //   `${link.textContent}`)
+    //   .filter(streetName => streetName.includes(`de`));    
+
+    /*===========================================================================================================*/
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort((a, b)=>{
 
+      // const parts = a.split(', '); will automatically structure it into an array, so we can destructure the array and make them into seperate variables like so:
+      const [afirstPart, alastPart] = a.split(', ');
+
+      const [bfirstPart, blastPart] = b.split(', ');
+
+      return alastPart > blastPart ? 1 : -1;
+    });
+
+    console.table(alpha);
+
+    /*===========================================================================================================*/
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const transportationInstances = data.reduce((object, item)=>{
+        if (!object[item]) 
+        {
+          object[item] = 0;
+        }
+
+        object[item]++;
+        return object;
+    }, {});
+
+    // Note that this time the second paramter is "{}" instead of 0, meaning the "object" variable right now will be a dictionary, KVP like data type
+    // By default the object is "{}"
+    // When u put object[item], it will return the "value", which is an integer, according to the "key" (item)
+    // lets say object["car"] = 0, will initialise the object {(car: 0)}, then object["car"] = 1, will return {(car: 1)}
+
+    console.table(transportationInstances);
+
+    /*===========================================================================================================*/
+
+    // Testing area
+
+    const dataNumbers = [0,0,1,2];
+
+    const numberInstances = dataNumbers.reduce((total, item)=>{
+      // let numberString = item.toString();
+      if (!total[item]) 
+      {
+        total[item] = 0;
+      }
+
+      total[item]++;
+      return total;
+    },{})
+
+    console.table(numberInstances);
+
+
 
   </script>
 </body>
