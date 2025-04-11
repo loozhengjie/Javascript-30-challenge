@@ -36,7 +36,14 @@ const blob = fetch(endpoint)
 // Why use ..data? When u trying to add array data B = [1,2,3] into array data A =[A,B],
 // It will be A=[A,B,1,2,3] instead of A=[A,B,[1,2,3]], no nested arrays stacked on each other
 
-
+// Course time @ 05:42
+function findMatches(wordToMatch, cities){
+  return cities.filer(place=>{
+    // figure out if city or state matches what was searched
+    const regex = new RegExp(wordToMatch,"gi");
+    return place.city.match(regex) || place.state.match(regex);
+  });
+}
 
 </script>
 </body>
