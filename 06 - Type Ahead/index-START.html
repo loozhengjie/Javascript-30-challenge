@@ -36,14 +36,42 @@ const blob = fetch(endpoint)
 // Why use ..data? When u trying to add array data B = [1,2,3] into array data A =[A,B],
 // It will be A=[A,B,1,2,3] instead of A=[A,B,[1,2,3]], no nested arrays stacked on each other
 
-// Course time @ 05:42
 function findMatches(wordToMatch, cities){
-  return cities.filer(place=>{
+  return cities.filter(place=>{
     // figure out if city or state matches what was searched
+    // for this one, we use regular expression to make sure the search is more detailed, such as the flags "gi", which means global and case insensitive
+    // global only returns the first instance of the match
     const regex = new RegExp(wordToMatch,"gi");
     return place.city.match(regex) || place.state.match(regex);
   });
 }
+
+function numberWithCommas(x){
+  return x.toString().replace(/\B(?=(\d{3})+ (?!\d))/g, ".");
+}
+
+function displayMatches(){
+  const matchArray = findMatches(this.value, cities);
+  const html = matchArray.map(place=>{
+    const regex = new RegExp(this.value, "gi");
+    const cityName = place.city.replace(regex, `<span class="hl">${this.value} </span>`);
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value} </span>`);
+    return `
+      <li>
+        <span class="name">${cityName}, ${stateName}</span>
+        <span class="population">${numberWithCommas(place.population)}</span>
+      </li>
+    `;
+  }).join('');
+
+  suggestions.innerHTML = html;
+}
+
+const searchInput = document.querySelector(".search");
+const suggestions = document.querySelector(".suggestions");
+
+searchInput.addEventListener("change", displayMatches);
+searchInput.addEventListener("keyup", displayMatches);
 
 </script>
 </body>
