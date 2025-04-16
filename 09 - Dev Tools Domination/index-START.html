@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log("Hello");
+
+    // Interpolated
+    console.log("Hello I am a %s string", '💩');
+
+    // Styled
+    console.log("%c Hello I am a %s string", "font-size: 50px; background: red; color: yellow;");
+
+    // warning!
+    console.warn("OH no");
+
+    // Error :|
+    console.error("Oh no");
+
+    // Info
+    console.info("Interesting fact");
+
+    // Testing
+    // Condition in front
+    console.assert(1===2, "One equals One");
+
+    // clearing
+    console.clear();
+
+    // Viewing DOM Elements
+    const p = document.querySelector("p");
+    console.log(p);
+    // Open up the class list
+    console.dir(p);
+
+    // Grouping together
+    // Kind of like pragma region for js console debug
+    dogs.forEach(dog=>{
+      console.group(`${dog.name}`); // or console.groupCollapsed(`${dog.name}`); if want it to be collapsed by default
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+
+    });
+
+    // counting
+    console.count("Wes");
+    console.count("Wes");
+    console.count("Wes");
+    console.count("Wes");
+    console.count("Wes");
+    console.count("Wes");
+
+    console.count("Bye");
+    console.count("Bye");
+
+    // timing
+    // This is log the time (ms) on how long does a task takes
+    console.time("Fetching data");
+    fetch("https://api.github.com/users/wesbos")
+    .then(data=>data.json())
+    .then(data=>{
+      console.timeEnd("Fetching data");
+      console.log(data);
+    });
+
+    // Logging an array
+    console.table(dogs);
+
+  </script>
+</body>
+</html>
