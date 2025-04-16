@@ -10,8 +10,85 @@
 <script>
   const canvas = document.querySelector("#draw");
   const ctx =  canvas.getContext("2d");
+  
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-  // Video stop at 1:20
+  // Color of the brush
+  ctx.strokeStyle = "#BADA55";
+  // End of line shape
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.lineWidth = 50;
+
+  // More about composite here : https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+  ctx.globalCompositeOperation = "multiply";
+
+  // flag to make sure that after u release your mouse, u stop drawing
+  let isDrawing = false;
+
+  let lastX = 0;
+  let lastY = 0;
+
+  let hue = 0;
+  let direction = true;
+
+
+
+  function draw(e){
+    if (!isDrawing) return;
+
+    console.log(e);
+
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    // Set up lines
+    ctx.beginPath();
+    // Start from
+    ctx.moveTo(lastX, lastY);
+    // Go to
+    ctx.lineTo(e.offsetX, e.offsetY);
+    // Actual draw
+    ctx.stroke();
+    // Update last x and last yWE
+    // lastX = e.offsetX;
+    // lastY = e.offsetY;
+    // we can use the following shorthand (destructuring an array)
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+
+    hue++;
+    if (hue >= 360){
+      hue = 0;
+    }
+
+    if (ctx.lineWidth >= 50 || ctx.lineWidth <=1){
+      direction = !direction;
+    }
+
+    if (direction){
+      ctx.lineWidth++;
+    }
+    else{
+      ctx.lineWidth--;
+    }
+  }
+
+
+  canvas.addEventListener("mousemove", draw);
+
+  
+  // When press mouse, set drawing flag to true
+  canvas.addEventListener("mousedown", (e)=>{
+  isDrawing = true;
+  // When mouse press, update the  last x and last y so that the canvas brush will start from where u press
+  [lastX, lastY] = [e.offsetX, e.offsetY];
+  });
+
+  // When release mouse, set drawing flag to false
+  canvas.addEventListener("mouseup", ()=> isDrawing = false);
+  // When u press mouse, but move mouse outside of the canvas, set that to false as well, cause it wont automatically call any release mouse event.
+  canvas.addEventListener("mouseout", ()=> isDrawing = false);
+
+
 </script>
 
 <style>
