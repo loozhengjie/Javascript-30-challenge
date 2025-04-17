@@ -98,32 +98,79 @@
 
 <script>
 
+  // Bool to store is shift hold
   let isHoldShift = false;
+
+  // Event to set the bool on keyup and keydown
   window.addEventListener("keydown", (e)=>{
     if (e.code == "ShiftLeft"){
       isHoldShift = true;
-      console.log(`Hold Shift Bool equals ${isHoldShift}`);
+      // console.log(`Hold Shift Bool equals ${isHoldShift}`);
     }
   });
 
   window.addEventListener("keyup", (e)=>{
     if (e.code == "ShiftLeft"){
       isHoldShift = false;
-      console.log(`Hold Shift Bool equals ${isHoldShift}`);
+      // console.log(`Hold Shift Bool equals ${isHoldShift}`);
     }
   });
 
-
+  // Cache the checkboxes
   const checkBoxes = document.querySelectorAll("input");
-  console.log(checkBoxes);
+  // console.log(checkBoxes);
   const checkBoxArray = [...checkBoxes];
-  console.log(checkBoxArray);
+  // console.log(checkBoxArray);
 
-  checkBoxArray.forEach(checkBox => checkBox.addEventListener("mousedown", (e)=>{
-    console.log(e);
-    const index = checkBoxArray.findIndex(cb => cb === checkBox);
-    console.log(`Button found at index ${index}`);
+  let lastCheckedButton = 0;
+  let currentCheckedButton = 0;
 
+
+  // Add checkbox "checked" event listener for each checkbox
+  checkBoxArray.forEach(checkBox => checkBox.addEventListener("change", function(e){
+    // Get the index of that checkbox and cache it
+    const indexToCheck = checkBoxArray.findIndex(cb => cb === checkBox);
+    currentCheckedButton = indexToCheck;
+
+    // The debug
+    // console.log(`currentCheckedButton is ${currentCheckedButton} of bool ${checkBoxArray[currentCheckedButton].checked} and lastCheckedButton is ${lastCheckedButton} of bool ${checkBoxArray[lastCheckedButton].checked}`);
+
+    // Cache the "checked" value of the checkbox when the value is changed
+    const bool = this.checked;
+
+    // Check the direction of clicking
+    let direction = (currentCheckedButton - lastCheckedButton) < 0;
+
+
+
+    // If the shift key is pressed
+    if (isHoldShift){
+      // If is a valid sequence
+      if (checkBoxArray[currentCheckedButton].checked == checkBoxArray[lastCheckedButton].checked){
+        // If positive direction
+        if (direction){
+          // Do an ascending for loop
+          for(i = currentCheckedButton+1; i < lastCheckedButton; i++){
+            if(checkBoxArray[i].checked != bool){
+              // Reverse their check status
+              checkBoxArray[i].checked = !checkBoxArray[i].checked;
+            }
+          }
+        }
+        else{
+          // Do a descending for loop if reverse direction
+          for(i = currentCheckedButton-1; i > lastCheckedButton; i--){
+            if(checkBoxArray[i].checked != bool){
+              // Reverse their check status
+              checkBoxArray[i].checked = !checkBoxArray[i].checked;
+            }
+          }
+        }
+      }
+    }
+
+    // Update the last checked button
+    lastCheckedButton = currentCheckedButton;
   }));
 
 </script>
