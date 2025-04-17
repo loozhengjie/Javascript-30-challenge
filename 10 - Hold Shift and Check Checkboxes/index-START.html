@@ -150,7 +150,7 @@
         // If positive direction
         if (direction){
           // Do an ascending for loop
-          for(i = currentCheckedButton+1; i < lastCheckedButton; i++){
+          for(let i = currentCheckedButton+1; i < lastCheckedButton; i++){
             if(checkBoxArray[i].checked != bool){
               // Reverse their check status
               checkBoxArray[i].checked = !checkBoxArray[i].checked;
@@ -159,7 +159,7 @@
         }
         else{
           // Do a descending for loop if reverse direction
-          for(i = currentCheckedButton-1; i > lastCheckedButton; i--){
+          for(let i = currentCheckedButton-1; i > lastCheckedButton; i--){
             if(checkBoxArray[i].checked != bool){
               // Reverse their check status
               checkBoxArray[i].checked = !checkBoxArray[i].checked;
@@ -172,6 +172,32 @@
     // Update the last checked button
     lastCheckedButton = currentCheckedButton;
   }));
+
+  //=========================================================================================================================================================================
+  // OG method
+  // let lastChecked;
+
+  // const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+
+  // function handleClick(e) {
+  //   let inBetween = false;
+    
+  //   if (e.shiftKey && this.checked) {
+  //     checkBoxes.forEach(checkbox => {
+  //       if (checkbox === this || checkbox === lastChecked) {
+  //         inBetween = !inBetween;
+  //       }
+
+  //       if (inBetween) {
+  //         checkbox.checked = true;
+  //       }
+  //     });
+  //   }
+
+  //   lastChecked = this;
+  // }
+
+  // checkBoxes.forEach(checkbox => checkbox.addEventListener("click", handleClick));
 
 </script>
 </body>
