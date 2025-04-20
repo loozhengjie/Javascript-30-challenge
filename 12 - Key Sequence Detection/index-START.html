@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script type="text/javascript" src="./cornify.js"></script>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <script>
+      const pressed = [];
+      const secretCode = 'wesbos'
+      window.addEventListener("keyup", (e)=>{
+        console.log(e.key);
+        pressed.push(e.key);
+
+        // Trim the array
+        // To make sure the pressed array always has the length of the code
+        // Once the pressed length exceeds threshold (7 in this case, exceeds the 6 threshold),
+        // Set the starting point from array end (first parameter : negative), and remove 1 old item (since 7-6 =1)
+        // If below threshold, first parameter kind of doesnt matter, cause the second parameter returns negative or zero (<6-6 is less or equals than 0), means nothing will get remove
+        pressed.splice(-secretCode.length-1, pressed.length - secretCode.length);
+
+        if (pressed.join("").includes(secretCode)){
+          console.log("ding dong");
+          cornify_add();
+        }
+
+        console.log(pressed);
+      });
+    </script>
+  </body>
+</html>
