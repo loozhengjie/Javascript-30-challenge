@@ -60,23 +60,28 @@
       };
     }
 
-    const slideImages = document.querySelectorAll(".slide-in");
+    const sliderImages = document.querySelectorAll(".slide-in");
     
     function checkSlide(e){
-      sliderImages.forEach(image=>{
-        // The scanning to check for images should be starting from the bottom of the viewport instead of top, so we need to offset that
-        const slideInAt = window.scrollY + window.innerHeight;
-
-        // Get where half of the detected image is detected
-        slideInAt-=image.innerHeight / 2;
+      sliderImages.forEach(sliderImage=>{
+        // The scanning to check for images should be starting from the bottom of the viewport instead of top, so we need to offset that,
+        // Then get where half of the detected image is detected
+        const slideInAt = (window.scrollY + window.innerHeight)- sliderImage.height / 2;
 
         // This returns how far down the image is from the top of the viewport (pixel level)
-        const imageBottom = image.offsetTop;
-
         // The add the height of the image to offset and get the bottom position of the image (pixel level)
-        imageBottom += image.innerHeight
+        const imageBottom = sliderImage.offsetTop + sliderImage.height;
 
-        // video stops at 9:15
+        // Check if the image is half shown
+        const isHalfShown = slideInAt > sliderImage.offsetTop;
+        const isNotScrolledPast = window.scrollY < imageBottom;
+
+        if (isHalfShown && isNotScrolledPast){
+          sliderImage.classList.add("active");
+        }
+        else{
+          sliderImage.classList.remove("active");
+        }
       })
     }
 
