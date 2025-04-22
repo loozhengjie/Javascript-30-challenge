@@ -73,15 +73,38 @@
     };
 
     // and think we make a copy:
-    const captain = person;
-    captain.number = 99;
+    // const captain = person;
+    // captain.number = 99;
+    // console.log(person, captain);
+
     // video stop at 6:22
 
     // how do we take a copy instead?
+    // First parameter: the empty object to create,
+    // Second parameter: object to copy to the empty object,
+    // Third parameter: extra properties you want to assign or override in the new object.
+    const cap2 = Object.assign({}, person, {number: 99});
+    console.log(person, cap2);
 
     // We will hopefully soon see the object ...spread
+    // const cap3 = {...person};
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const wes = {
+      name: "wes",
+      age: 100,
+      social: {
+        twitter: "@wesbos",
+        facebook: "wesbos.dev"
+      }
+    }
+
+    // When we copy like this, it will only copy attributes that are 1 level deep (name, age, social), anything deeper (social.twitter, social.facebook) will be referenced instead
+    const dev = Object.assign({}, wes);
+
+    // There is this thing call cloneDeep that can do it, but think twice
+    // Poor man way of doing cloneDeep is to use json to convert it to string then immediately convert it back to struct, performance heavy
+    const dev2 = JSON.parse(JSON.stringify(wes));
 
   </script>
 
