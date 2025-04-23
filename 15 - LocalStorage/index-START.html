@@ -24,6 +24,12 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+
+    <div>    
+      <button class="delete-button">Delete</button>
+      <button class="checkall-button">Check All</button>
+      <button class="uncheckall-button">Uncheck All</button>
+    </div>
   </div>
 
 <script>
@@ -72,9 +78,13 @@
   }
 
   function toggleDone(e){
+    // e.target debugs on what u clicked, since the label is connected the input (checkbox), e.target will debug both of them when the checkbox is clicked
+    console.log(e.target);
+    // Thats why we need to filter it
     if (!e.target.matches("input")) return;
     const el = e.target;
     const index = el.dataset.index;
+    // On the local storage data, update the boolean
     items[index].done = !items[index].done;
     localStorage.setItem("items", JSON.stringify(items));
     populateList(items, itemsList);
@@ -85,6 +95,16 @@
 
   // Based on the save items, call populate list
   populateList(items, itemsList);
+
+  const deleteButton = document.querySelector(".delete-button");
+  deleteButton.addEventListener("click", onDelete);
+
+  function onDelete(e){
+    items.length = 0;
+    localStorage.setItem("items", JSON.stringify(items));
+    populateList(items, itemsList);
+
+  }
 
 
 
