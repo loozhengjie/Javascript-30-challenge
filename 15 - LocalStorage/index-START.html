@@ -25,10 +25,12 @@
       <input type="submit" value="+ Add Item">
     </form>
 
+    <br>
+
     <div>    
       <button class="delete-button">Delete</button>
-      <button class="checkall-button">Check All</button>
-      <button class="uncheckall-button">Uncheck All</button>
+      <button class="check-button" data-status="true">Check All</button>
+      <button class="check-button" data-status="false">Uncheck All</button>
     </div>
   </div>
 
@@ -57,7 +59,7 @@
     // So we need to stringify / serialise it
     // To reverse it we use JSON.parse() instead
     localStorage.setItem("items", JSON.stringify(items));
-    console.table(items);
+    // console.table(items);
 
     this.reset();
   }
@@ -79,7 +81,7 @@
 
   function toggleDone(e){
     // e.target debugs on what u clicked, since the label is connected the input (checkbox), e.target will debug both of them when the checkbox is clicked
-    console.log(e.target);
+    // console.log(e.target);
     // Thats why we need to filter it
     if (!e.target.matches("input")) return;
     const el = e.target;
@@ -96,12 +98,34 @@
   // Based on the save items, call populate list
   populateList(items, itemsList);
 
+  // Get the delete button
   const deleteButton = document.querySelector(".delete-button");
   deleteButton.addEventListener("click", onDelete);
 
   function onDelete(e){
+    // Reset the array
     items.length = 0;
+    // Update local storage
     localStorage.setItem("items", JSON.stringify(items));
+    // Populate list
+    populateList(items, itemsList);
+  }
+
+
+  // Get all check buttons
+  const checkButtons = document.querySelectorAll(".check-button");
+  // Add event listener to each button
+  checkButtons.forEach(checkButton => checkButton.addEventListener("click", setCheckStatus));
+
+  function setCheckStatus(e){
+    // Get the result true or false based on the dataset
+    const shouldCheck = this.dataset.status === "true";
+
+    // Loop all item list and set their done status to the result
+    items.forEach(item=>item.done = shouldCheck);
+    // Update local storage
+    localStorage.setItem("items", JSON.stringify(items));
+    // Populate to refresh list again
     populateList(items, itemsList);
 
   }
