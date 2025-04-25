@@ -52,7 +52,7 @@ const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'N
 function strip(bandName){
   // Make sure the replace is "a ", "The " and " An ", not " a ", " The ", " an "
   // No spacebar before, cause we are replacing "word " without the space in front
-  return bandName.replace(/^(a |the |an)/i, "").trim();
+  return bandName.replace(/^(a |the |an )/i, "").trim();
 }
 
 let sort = bands.sort((a, b)=>{
