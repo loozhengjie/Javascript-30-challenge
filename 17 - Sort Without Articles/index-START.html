@@ -48,30 +48,38 @@
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+function strip(bandName){
+  // Make sure the replace is "a ", "The " and " An ", not " a ", " The ", " an "
+  // No spacebar before, cause we are replacing "word " without the space in front
+  return bandName.replace(/^(a |the |an)/i, "").trim();
+}
+
 let sort = bands.sort((a, b)=>{
-  const prevStrings = a.split(" ");
-  const nextStrings = b.split(" ");
-  let aString = "";
-  let bString = "";
+  // Old self attempt
+  // const prevStrings = a.split(" ");
+  // const nextStrings = b.split(" ");
+  // let aString = "";
+  // let bString = "";
 
-  if (prevStrings[0] === "The" || prevStrings[0] === "A" || prevStrings[0] === "An"){
-    aString = prevStrings[1];
-  }
-  else{
-    aString = prevStrings[0];
-  }
+  // if (prevStrings[0] === "The" || prevStrings[0] === "A" || prevStrings[0] === "An"){
+  //   aString = prevStrings[1];
+  // }
+  // else{
+  //   aString = prevStrings[0];
+  // }
 
-  if (nextStrings[0] === "The" || nextStrings[0] === "A" || nextStrings[0] === "An"){
-    bString = nextStrings[1];
-  }
-  else{
-    bString = nextStrings[0];
-  }
+  // if (nextStrings[0] === "The" || nextStrings[0] === "A" || nextStrings[0] === "An"){
+  //   bString = nextStrings[1];
+  // }
+  // else{
+  //   bString = nextStrings[0];
+  // }
 
-  const prevString = aString.split("")[0];
-  const nextString = bString.split("")[0];
+  // const prevString = aString.split("")[0];
+  // const nextString = bString.split("")[0];
   
-  return prevString > nextString ? 1 : prevString < nextString ? -1 : 0;
+  return strip(a) > strip(b) ? 1 : -1;
 })
 
 console.log(sort);
