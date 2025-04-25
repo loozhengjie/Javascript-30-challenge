@@ -11,7 +11,7 @@
     body {
       margin: 0;
       font-family: sans-serif;
-      background: url("https://source.unsplash.com/nDqA4d5NL0k/2000x2000");
+      background: url("https://picsum.photos/2000");
       background-size: cover;
       display: flex;
       align-items: center;
@@ -71,10 +71,16 @@ let sort = bands.sort((a, b)=>{
   const prevString = aString.split("")[0];
   const nextString = bString.split("")[0];
   
-  return prevString > nextString ? true : false;
+  return prevString > nextString ? 1 : prevString < nextString ? -1 : 0;
 })
 
 console.log(sort);
+
+const list = document.querySelector("#bands");
+list.innerHTML = sort.map((sort, i)=>{
+  return `<li>${sort}</li>`;
+}).join("");
+
 
 </script>
 
