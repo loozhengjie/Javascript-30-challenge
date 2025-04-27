@@ -44,8 +44,8 @@ function takePhoto(){
     strip.insertBefore(link, strip.firstChild);
 }
 
-getVideo();
+// getVideo();
 
-video.addEventListener("canplay", paintToCanvas);
+// video.addEventListener("canplay", paintToCanvas);
 
 // Video stop at 18:25
