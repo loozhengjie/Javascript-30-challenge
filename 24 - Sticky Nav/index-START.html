@@ -60,14 +60,20 @@
   function fixNav(){
     console.log(topOfNav);
     if (window.scrollY > topOfNav){
+      // "Add" offset to the body to prevent the content to take up space from fix navbar due to it being removed from document flow
+      document.body.style.paddingTop = `${nav.offsetHeight}px`;
       document.body.classList.add("fixed-nav");
     }
     else{
+      // "Remove" offset to the body
+      document.body.style.paddingTop = `0px`;
       document.body.classList.remove("fixed-nav");
     }
   }
 
   // Video stop at 4:18
+
+
 
   window.addEventListener("scroll", fixNav);
 </script>
