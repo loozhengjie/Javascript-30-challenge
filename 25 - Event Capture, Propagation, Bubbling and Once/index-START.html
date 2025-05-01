@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+</style>
+
+<button></button>
+<script>
+  const divs = document.querySelectorAll("div");
+  function logText(e){
+    console.log(this.classList.value);
+    console.log(this);
+  }
+
+  // Bubbling is a concept in which if u interact with a nested element, it will do the same to its ancestors in the DOM tree as well
+  // For this case, if u clicked on the innest div (three), the log text event will be triggered for its ancestors (one and two)
+  // Modern browser will first capture the top element and "scan" from top to down
+  // Then the events for the elements will start firing from bottom to top
+  divs.forEach(div => div.addEventListener("click", logText));
+
+
+</script>
+</body>
+</html>
