@@ -46,14 +46,21 @@
   const divs = document.querySelectorAll("div");
   function logText(e){
     console.log(this.classList.value);
-    console.log(this);
+    // Stop the bubbling
+    e.stopPropagation();
   }
 
   // Bubbling is a concept in which if u interact with a nested element, it will do the same to its ancestors in the DOM tree as well
   // For this case, if u clicked on the innest div (three), the log text event will be triggered for its ancestors (one and two)
   // Modern browser will first capture the top element and "scan" from top to down
   // Then the events for the elements will start firing from bottom to top
-  divs.forEach(div => div.addEventListener("click", logText));
+  // stop at 440
+  divs.forEach(div => div.addEventListener("click", logText, {
+    // This third parameter object will modify the capture behaviour
+    capture: false,
+    // This one makes it so that it unlisten to the event
+    once: true
+  }));
 
 
 </script>
