@@ -40,7 +40,7 @@ function displayEndTime(timestamp){
     const hour = end.getHours();
     const mins = end.getMinutes();
     const secs = end.getSeconds();
-    endTime.textContent = `Be back at ${hour > 12 ? hour-12 : hour}:${mins < 10 ? "0"+ mins : mins}`;
+    endTime.textContent = `Be back at ${hour > 12 ? hour-12 : hour}:${mins < 10 ? "0"+ mins : mins}${hour > 12 ? "pm" : "am"}`;
 }
 
 function startTimer(){
@@ -55,4 +55,3 @@ document.customForm.addEventListener("submit", function(e){
     this.reset;
 });
 
-// video stops at 11:53
